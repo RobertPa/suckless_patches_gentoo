@@ -1,5 +1,6 @@
 # suckless_patches_gentoo
 The suckless.org community provides minimalist free software which follows the Unix philosophy.
+
 Those applications are configured by editing the source code before compilation.
 I plan to collect patches for suckless software in this repository in a format which allows to use them with Gentoo's package management system Portage.
 Patches provided here may be 1:1 copies of patch-files provided at www.suckless.org rewritten in a format suitable for Portage,
