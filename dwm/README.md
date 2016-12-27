@@ -1,4 +1,4 @@
-Patches for window manager dwm 6.1
+##Patches for window manager dwm 6.1
 
 01_pertag.patch
 This patch keeps layout, mwfact, barpos and nmaster per tag.
