@@ -1,0 +1,39 @@
+diff -Naur surf-0.7/config.def.h surf-0.7_copy/config.def.h
+--- surf-0.7/config.def.h	2015-12-19 15:59:30.000000000 +0100
++++ surf-0.7_copy/config.def.h	2016-12-27 13:34:33.405622246 +0100
+@@ -35,6 +35,8 @@
+ static Bool hidebackground        = FALSE;
+ static Bool allowgeolocation      = TRUE;
+ 
++#define HOMEPAGE "https://www.duckduckgo.com/"
++
+ #define SETPROP(p, q) { \
+ 	.v = (char *[]){ "/bin/sh", "-c", \
+ 	     "prop=\"`xprop -id $2 $0 " \
+diff -Naur surf-0.7/config.h surf-0.7_copy/config.h
+--- surf-0.7/config.h	2016-12-27 13:16:28.326644513 +0100
++++ surf-0.7_copy/config.h	2016-12-27 13:38:42.294617138 +0100
+@@ -35,6 +35,8 @@
+ static Bool hidebackground        = FALSE;
+ static Bool allowgeolocation      = TRUE;
+ 
++#define HOMEPAGE "https://www.duckduckgo.com/"
++
+ #define SETPROP(p, q) { \
+ 	.v = (char *[]){ "/bin/sh", "-c", \
+ 	     "prop=\"`xprop -id $2 $0 " \
+diff -Naur surf-0.7/surf.c surf-0.7_copy/surf.c
+--- surf-0.7/surf.c	2015-12-19 15:59:30.000000000 +0100
++++ surf-0.7_copy/surf.c	2016-12-27 13:37:24.376618737 +0100
+@@ -1759,7 +1759,10 @@
+ 	default:
+ 		usage();
+ 	} ARGEND;
+-	if (argc > 0)
++     #ifdef HOMEPAGE
++        arg.v = HOMEPAGE;
++    #endif
++    if (argc > 0)
+ 		arg.v = argv[0];
+ 
+ 	setup();

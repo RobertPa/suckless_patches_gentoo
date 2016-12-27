@@ -1,0 +1,59 @@
+diff -Naur dwm-6.1/dwm.c dwm-6.1-copy/dwm.c
+--- dwm-6.1/dwm.c	2015-11-08 23:39:37.000000000 +0100
++++ dwm-6.1-copy/dwm.c	2016-12-25 13:18:27.031045941 +0100
+@@ -147,6 +147,7 @@
+ static void arrange(Monitor *m);
+ static void arrangemon(Monitor *m);
+ static void attach(Client *c);
++static void attachabove(Client *c);
+ static void attachstack(Client *c);
+ static void buttonpress(XEvent *e);
+ static void checkotherwm(void);
+@@ -406,6 +407,20 @@
+ }
+ 
+ void
++attachabove(Client *c)
++{
++	if(c->mon->sel == NULL || c->mon->sel == c->mon->clients || c->mon->sel->isfloating) {
++		attach(c);
++		return;
++	}
++
++	Client *at;
++	for(at = c->mon->clients; at->next != c->mon->sel; at = at->next);
++	c->next = at->next;
++	at->next = c;
++}
++
++void
+ attachstack(Client *c)
+ {
+ 	c->snext = c->mon->stack;
+@@ -1076,7 +1091,7 @@
+ 		c->isfloating = c->oldstate = trans != None || c->isfixed;
+ 	if (c->isfloating)
+ 		XRaiseWindow(dpy, c->win);
+-	attach(c);
++	attachabove(c);
+ 	attachstack(c);
+ 	XChangeProperty(dpy, root, netatom[NetClientList], XA_WINDOW, 32, PropModeAppend,
+ 	                (unsigned char *) &(c->win), 1);
+@@ -1434,7 +1449,7 @@
+ 	detachstack(c);
+ 	c->mon = m;
+ 	c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
+-	attach(c);
++	attachabove(c);
+ 	attachstack(c);
+ 	focus(NULL);
+ 	arrange(NULL);
+@@ -1891,7 +1906,7 @@
+ 					m->clients = c->next;
+ 					detachstack(c);
+ 					c->mon = mons;
+-					attach(c);
++					attachabove(c);
+ 					attachstack(c);
+ 				}
+ 				if (m == selmon)
