@@ -1,0 +1,24 @@
+diff -Naur surf-0.7_original/config.def.h surf-0.7/config.def.h
+--- surf-0.7_original/config.def.h	2017-01-10 03:19:08.532095102 +0100
++++ surf-0.7/config.def.h	2017-01-10 03:20:37.691097221 +0100
+@@ -129,6 +129,8 @@
+ 	{ MODKEY|GDK_SHIFT_MASK,GDK_g,      togglegeolocation, { 0 } },
+ };
+ 
++static char *searchengine   = "https://google.com/?q=";
++
+ /* button definitions */
+ /* click can be ClkDoc, ClkLink, ClkImg, ClkMedia, ClkSel, ClkEdit, ClkAny */
+ static Button buttons[] = {
+diff -Naur surf-0.7_original/surf.c surf-0.7/surf.c
+--- surf-0.7_original/surf.c	2017-01-10 03:19:08.532095102 +0100
++++ surf-0.7/surf.c	2017-01-10 03:22:19.674099645 +0100
+@@ -837,6 +837,8 @@
+ 		rp = realpath(uri, NULL);
+ 		u = g_strdup_printf("file://%s", rp);
+ 		free(rp);
++    } else if (*uri == ' ') {
++           u = g_strdup_printf("%s%s", searchengine, uri+1);
+ 	} else {
+ 		u = g_strrstr(uri, "://") ? g_strdup(uri)
+ 		    : g_strdup_printf("http://%s", uri);

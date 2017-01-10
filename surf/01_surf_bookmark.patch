@@ -1,6 +1,6 @@
-diff -Naur surf-0.7/config.h surf-0.7_copy/config.h
---- surf-0.7/config.h	2016-12-27 13:16:28.326644513 +0100
-+++ surf-0.7_copy/config.h	2016-12-27 13:14:50.122646529 +0100
+diff -Naur surf-0.7/config.def.h surf-0.7_copy/config.def.h
+--- surf-0.7/config.def.h	2016-12-27 13:16:28.326644513 +0100
++++ surf-0.7_copy/config.def.h	2016-12-27 13:14:50.122646529 +0100
 @@ -37,10 +37,9 @@
  
  #define SETPROP(p, q) { \
